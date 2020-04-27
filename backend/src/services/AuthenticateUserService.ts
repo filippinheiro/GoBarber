@@ -10,13 +10,13 @@ interface RequestDTO {
   password: string;
 }
 
-interface Response {
+interface ResponseDTO {
   user: User;
   token: string;
 }
 
 export default class AuthenticateUserService {
-  public async execute({ email, password }: RequestDTO): Promise<Response> {
+  public async execute({ email, password }: RequestDTO): Promise<ResponseDTO> {
     const usersRepository = getRepository(User);
 
     const user = await usersRepository.findOne({

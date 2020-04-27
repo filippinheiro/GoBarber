@@ -6,4 +6,5 @@ temp/
 
 tmp/*
 !tmp/.gitkeep
-
+config/*
+!congig/.gitkeep
