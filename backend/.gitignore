@@ -8,3 +8,4 @@ tmp/*
 !tmp/.gitkeep
 src/config/*
 !src/config/.gitkeep
+!src/config/upload.ts

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { startOfHour } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 import Appointment from '../database/models/Appointment';

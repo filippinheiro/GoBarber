@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { getRepository } from 'typeorm';
 import fs from 'fs';
 import path from 'path';
