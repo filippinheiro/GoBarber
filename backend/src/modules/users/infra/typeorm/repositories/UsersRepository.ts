@@ -2,7 +2,6 @@ import { getRepository, Repository } from 'typeorm';
 
 import IUserRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
-import usersRouter from '@modules/users/http/routes/users.routes';
 import User from '../entities/User';
 
 export default class UsersRepository implements IUserRepository {
