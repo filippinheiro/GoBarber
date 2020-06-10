@@ -28,11 +28,11 @@ export default class SendForgotPasswordEmailService {
 
     if (!user) throw new AppError('This account is not registered');
 
-    await this.userTokensRepository.generate(user.id);
+    const { token } = await this.userTokensRepository.generate(user.id);
 
     await this.mailProvider.sendMail({
       to: email,
-      body: 'Pedido de recuperação de senha recebido',
+      body: `Pedido de recuperação de senha recebido ${token}`,
     });
   }
 }
