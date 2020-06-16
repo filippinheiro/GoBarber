@@ -7,7 +7,7 @@ import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import IUserTokensRepository from '../repositories/IUserTokensRepository';
 import IUsersRepository from '../repositories/IUsersRepository';
 
-import ResetPasswordService from './ResetPasswordService';
+import ResetPasswordService from '../services/ResetPasswordService';
 
 let fakeUsersRepository: IUsersRepository;
 let fakeUserTokensRepository: IUserTokensRepository;

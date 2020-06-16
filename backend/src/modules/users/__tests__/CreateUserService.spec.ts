@@ -1,10 +1,12 @@
 import AppError from '@shared/errors/AppError';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
-import CreateUserService from './CreateUserService';
+import CreateUserService from '../services/CreateUserService';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
+import IUsersRepository from '../repositories/IUsersRepository';
 
-let fakeUsersRepository: FakeUsersRepository;
-let fakeHashProvider: FakeHashProvider;
+let fakeUsersRepository: IUsersRepository;
+let fakeHashProvider: IHashProvider;
 let createUser: CreateUserService;
 
 describe('Create User', () => {

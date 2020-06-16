@@ -1,13 +1,16 @@
 import AppError from '@shared/errors/AppError';
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
 
+import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
-import SendForgotPasswordEmailService from './SendForgotPasswordEmailService';
+import SendForgotPasswordEmailService from '../services/SendForgotPasswordEmailService';
 import FakeUserTokenRepository from '../repositories/fakes/FakeUserTokensRepository';
+import IUsersRepository from '../repositories/IUsersRepository';
+import IUserTokensRepository from '../repositories/IUserTokensRepository';
 
-let fakeUsersRepository: FakeUsersRepository;
-let fakeMailProvider: FakeMailProvider;
-let fakeUserTokensRepository: FakeUserTokenRepository;
+let fakeUsersRepository: IUsersRepository;
+let fakeMailProvider: IMailProvider;
+let fakeUserTokensRepository: IUserTokensRepository;
 let sendForgotPasswordEmail: SendForgotPasswordEmailService;
 
 describe('Send Forgot Password Email', () => {

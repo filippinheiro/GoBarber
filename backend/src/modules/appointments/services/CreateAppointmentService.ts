@@ -8,6 +8,7 @@ import IAppointmentRepository from '../repositories/IAppointmentsRepository';
 interface RequestDTO {
   date: Date;
   provider_id: string;
+  user_id: string;
 }
 
 @injectable()

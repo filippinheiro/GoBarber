@@ -1,8 +1,5 @@
-export interface IMessage {
-  to: string;
-  body: string;
-}
+import IMessageDTO from '../IMessageDTO';
 
 export default interface IMailProvider {
-  sendMail(message: IMessage): Promise<void>;
+  sendMail(message: IMessageDTO): Promise<void>;
 }

@@ -1,12 +1,14 @@
 import AppError from '@shared/errors/AppError';
 
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
+import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
-import UpdateUserAvatarService from './UpdateUserAvatarService';
+import UpdateUserAvatarService from '../services/UpdateUserAvatarService';
+import IUsersRepository from '../repositories/IUsersRepository';
 
-let fakeUsersRepository: FakeUsersRepository;
-let fakeStorageProvider: FakeStorageProvider;
+let fakeUsersRepository: IUsersRepository;
+let fakeStorageProvider: IStorageProvider;
 
 let updateUserAvatar: UpdateUserAvatarService;
 
