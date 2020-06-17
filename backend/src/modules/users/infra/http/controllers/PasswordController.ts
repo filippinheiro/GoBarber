@@ -1,4 +1,5 @@
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import ResetPasswordService from '@modules/users/services/ResetPasswordService';
 import { Request, Response } from 'express';
@@ -14,6 +15,6 @@ export default class PasswordController {
       token,
     });
 
-    return response.json({ user });
+    return response.json({ user: classToClass(user) });
   }
 }
