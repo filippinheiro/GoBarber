@@ -36,7 +36,7 @@
 
 ### FR
 
-- O usuário deve poder visualizar os agendamentos de um dia específico;
+- O prestador deve poder visualizar os agendamentos de um dia específico;
 - O prestador deve receber uma notifição sempre que houver um novo agendamento;
 - O prestador deve poder visualizar as notificações não lidas;
 
@@ -56,7 +56,7 @@
 
 - O usuário deve poder visualizar uma lista com todos os prestadores cadastrados;
 - O usuário deve poder visualizar os dias do mês com pelo menos um horário disponível de um prestador selecionado;
-- O usuário deve poder visualizar horários edisponíveis em um dia selecionado;
+- O usuário deve poder visualizar horários disponíveis em um dia selecionado;
 - O usuário deve poder realizar um agendamento;
 
 ### NFR
