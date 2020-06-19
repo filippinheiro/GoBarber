@@ -1,16 +1,23 @@
-import ListProviderAppointmentsService from '../services/ListProviderAppointmentsService';
-import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 
+import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository';
 
-let listProviderAppointments: ListProviderAppointmentsService;
+import ListProviderAppointmentsService from '../services/ListProviderAppointmentsService';
+
+let fakeCacheProvider: ICacheProvider;
 let fakeAppoitmentRepository: IAppointmentsRepository;
+
+let listProviderAppointments: ListProviderAppointmentsService;
 
 describe('List Provider Appointments', () => {
   beforeEach(() => {
     fakeAppoitmentRepository = new FakeAppointmentsRepository();
+    fakeCacheProvider = new FakeCacheProvider();
     listProviderAppointments = new ListProviderAppointmentsService(
       fakeAppoitmentRepository,
+      fakeCacheProvider,
     );
   });
 

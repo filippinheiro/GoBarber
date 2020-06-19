@@ -1,6 +1,8 @@
 import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
+
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 import Appointment from '../infra/typeorm/entities/Appointment';
 
@@ -27,10 +29,19 @@ export default class ListMonthAvailabilityService {
     day,
     provider_id,
   }: IRequest): Promise<Appointment[]> {
-    const appointments = await this.appointmentsRepository.findAllInDayFromProvider(
-      { month, year, day, provider_id },
+    const cacheKey = `provider-appointments:${provider_id}:${year}-${month}-${day}`;
+
+    let appointments = await this.cacheProvider.retrieve<Appointment[]>(
+      cacheKey,
     );
 
+    if (!appointments) {
+      appointments = await this.appointmentsRepository.findAllInDayFromProvider(
+        { month, year, day, provider_id },
+      );
+
+      await this.cacheProvider.save(cacheKey, appointments);
+    }
     return appointments;
   }
 }

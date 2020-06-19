@@ -1,20 +1,32 @@
 import AppError from '@shared/errors/AppError';
-import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
-import CreateUserService from '../services/CreateUserService';
-import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
-import IHashProvider from '../providers/HashProvider/models/IHashProvider';
+
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
+
 import IUsersRepository from '../repositories/IUsersRepository';
+import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
+
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
+import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
+
+import CreateUserService from '../services/CreateUserService';
 
 let fakeUsersRepository: IUsersRepository;
+let fakeCacheProvider: ICacheProvider;
 let fakeHashProvider: IHashProvider;
 let createUser: CreateUserService;
 
 describe('Create User', () => {
   beforeEach(() => {
+    fakeCacheProvider = new FakeCacheProvider();
     fakeUsersRepository = new FakeUsersRepository();
     fakeHashProvider = new FakeHashProvider();
 
-    createUser = new CreateUserService(fakeUsersRepository, fakeHashProvider);
+    createUser = new CreateUserService(
+      fakeUsersRepository,
+      fakeHashProvider,
+      fakeCacheProvider,
+    );
   });
 
   it('should be able to create a new user', async () => {

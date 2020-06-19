@@ -1,16 +1,16 @@
 import AppError from '@shared/errors/AppError';
 
-import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
-import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
-import AuthenticateUserService from '../services/AuthenticateUserService';
-import CreateUserService from '../services/CreateUserService';
-import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
+import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
+
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
+import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
+
+import AuthenticateUserService from '../services/AuthenticateUserService';
 
 let fakeUsersRepository: IUsersRepository;
 let fakeHashProvider: IHashProvider;
 
-let createUser: CreateUserService;
 let authenticateUser: AuthenticateUserService;
 
 describe('Authenticate User', () => {
@@ -18,7 +18,6 @@ describe('Authenticate User', () => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeHashProvider = new FakeHashProvider();
 
-    createUser = new CreateUserService(fakeUsersRepository, fakeHashProvider);
     authenticateUser = new AuthenticateUserService(
       fakeUsersRepository,
       fakeHashProvider,
@@ -26,7 +25,7 @@ describe('Authenticate User', () => {
   });
 
   it('should be able to authenticate a user', async () => {
-    const user = await createUser.execute({
+    const user = await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '123456',
@@ -51,7 +50,7 @@ describe('Authenticate User', () => {
   });
 
   it('should not be able to authenticate with wrong password', async () => {
-    await createUser.execute({
+    await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '123456',

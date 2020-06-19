@@ -3,6 +3,7 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 import Appointment from '../infra/typeorm/entities/Appointment';
 import IAppointmentRepository from '../repositories/IAppointmentsRepository';
@@ -21,6 +22,9 @@ export default class CreateAppointmentService {
 
     @inject('NotificationsRepository')
     private notificationsRepository: INotificationsRepository,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -29,6 +33,10 @@ export default class CreateAppointmentService {
     user_id,
   }: RequestDTO): Promise<Appointment> {
     const appointmentDate = startOfHour(date);
+    const cacheKey = `provider-appointments:${provider_id}:${format(
+      appointmentDate,
+      'yyyy-M-d',
+    )}`;
 
     if (isBefore(appointmentDate, Date.now())) {
       throw new AppError('You cannot book an appointment on a past date');
@@ -60,6 +68,8 @@ export default class CreateAppointmentService {
       recipient_id: provider_id,
       content: `Novo agendamento para dia ${formatedDate}`,
     });
+
+    await this.cacheProvider.invalidate(cacheKey);
 
     return appointment;
   }

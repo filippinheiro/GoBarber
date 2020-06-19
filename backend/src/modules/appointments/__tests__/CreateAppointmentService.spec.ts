@@ -1,11 +1,17 @@
 import AppError from '@shared/errors/AppError';
+
 import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotificationsRepository';
 
-import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository';
-import CreateAppointmentService from '../services/CreateAppointmentService';
-import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 
+import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
+import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository';
+
+import CreateAppointmentService from '../services/CreateAppointmentService';
+
+let fakeCacheProvider: ICacheProvider;
 let fakeAppointmentsRepository: IAppointmentsRepository;
 let fakeNotificationsRepository: INotificationsRepository;
 let createAppointment: CreateAppointmentService;
@@ -14,9 +20,11 @@ describe('Create Appointment', () => {
   beforeEach(() => {
     fakeAppointmentsRepository = new FakeAppointmentsRepository();
     fakeNotificationsRepository = new FakeNotificationsRepository();
+    fakeCacheProvider = new FakeCacheProvider();
     createAppointment = new CreateAppointmentService(
       fakeAppointmentsRepository,
       fakeNotificationsRepository,
+      fakeCacheProvider,
     );
   });
 

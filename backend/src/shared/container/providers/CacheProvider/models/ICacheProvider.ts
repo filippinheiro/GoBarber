@@ -1,5 +1,6 @@
 export default interface ICacheProvider {
-  save(key: string, value: string): Promise<void>;
+  save<T>(key: string, value: T): Promise<void>;
   invalidate(key: string): Promise<void>;
-  retrieve(key: string): Promise<string | null>;
+  retrieve<T>(key: string): Promise<T | null>;
+  invalidatePrefix(prefix: string): Promise<void>;
 }
