@@ -10,9 +10,15 @@ import IFindAllInDayDTO from '../dtos/IFindAllInDayDTO';
 export default class AppointmentsRepository implements IAppoitmentRepository {
   private appointments: Appointment[] = [];
 
-  public async findByDate(date: Date): Promise<Appointment | undefined> {
+  public async findByDate(
+    date: Date,
+    provider_id: string,
+  ): Promise<Appointment | undefined> {
     const findAppointment = this.appointments.find((appointment) => {
-      return isEqual(appointment.date, date);
+      return (
+        isEqual(appointment.date, date) &&
+        provider_id === appointment.provider_id
+      );
     });
 
     return findAppointment;

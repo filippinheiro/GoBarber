@@ -9,13 +9,13 @@ export default class ProviderDayAvailabilityController {
 
     const { provider_id } = request.params;
 
-    const { month, year, day } = request.body;
+    const { month, year, day } = request.query;
 
     const availability = await listDayAvailability.execute({
       provider_id,
-      year,
-      day,
-      month,
+      year: Number(year),
+      month: Number(month),
+      day: Number(day),
     });
     return response.json(availability);
   }
