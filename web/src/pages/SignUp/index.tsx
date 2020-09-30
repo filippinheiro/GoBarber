@@ -23,7 +23,7 @@ interface SingUpFormData {
 const SingUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useToast();
-  const history = useHistory();
+  const { push } = useHistory();
 
   const handleSubmit = useCallback(
     async (data: SingUpFormData) => {
@@ -48,16 +48,15 @@ const SingUp: React.FC = () => {
           type: 'success',
           description: 'Você já pode fazer seu login no GoBarber',
         });
-
-        history.push('/');
+        push('/');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationError(err);
 
           formRef.current?.setErrors(errors);
-
           return;
         }
+
         addToast({
           type: 'error',
           title: 'Erro no cadastro',
@@ -65,7 +64,7 @@ const SingUp: React.FC = () => {
         });
       }
     },
-    [addToast, history],
+    [addToast, push],
   );
 
   return (

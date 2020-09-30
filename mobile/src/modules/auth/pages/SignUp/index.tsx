@@ -15,15 +15,15 @@ import { useNavigation } from '@react-navigation/native';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
-import TogglePassword from '../../components/TogglePassword';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import TogglePassword from '../../../../components/TogglePassword';
+import Input from '../../../../components/Input';
+import Button from '../../../../components/Button';
 
-import logoImg from '../../assets/logo.png';
+import logoImg from '../../../../assets/logo.png';
 
 import { Container, Title, BackToSignIn, BackToSignInText } from './styles';
-import getValidationError from '../../utils/getValidationErrors';
-import api from '../../services/api';
+import getValidationError from '../../../../utils/getValidationErrors';
+import api from '../../../../services/api';
 
 interface SingUpFormData {
   nome: string;
@@ -118,6 +118,7 @@ const SignUp: React.FC = () => {
               />
               <TogglePassword
                 inputReference={passwordRef}
+                placeholder="Senha"
                 autoCompleteType="password"
                 textContentType="newPassword"
                 returnKeyType="send"

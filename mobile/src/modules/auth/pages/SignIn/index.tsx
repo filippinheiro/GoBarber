@@ -14,11 +14,11 @@ import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import Icon from 'react-native-vector-icons/Feather';
 
-import Input from '../../components/Input';
-import Button from '../../components/Button';
-import TogglePassword from '../../components/TogglePassword';
+import Input from '../../../../components/Input';
+import Button from '../../../../components/Button';
+import TogglePassword from '../../../../components/TogglePassword';
 
-import logoImg from '../../assets/logo.png';
+import logoImg from '../../../../assets/logo.png';
 
 import {
   Container,
@@ -29,8 +29,8 @@ import {
   CreateAccountButtonText,
 } from './styles';
 
-import { useAuth } from '../../hooks/auth';
-import getValidationError from '../../utils/getValidationErrors';
+import { useAuth } from '../../../../hooks/auth';
+import getValidationError from '../../../../utils/getValidationErrors';
 
 interface SignInFormData {
   email: string;
@@ -112,6 +112,7 @@ const SignIn: React.FC = () => {
               />
               <TogglePassword
                 inputReference={passwordInputRef}
+                placeholder="Senha"
                 autoCompleteType="password"
                 returnKeyType="send"
                 onSubmitEditing={() => {

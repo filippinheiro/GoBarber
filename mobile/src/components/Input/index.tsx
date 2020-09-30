@@ -12,10 +12,11 @@ import { useField } from '@unform/core';
 
 import { Container, TextInput, Icon } from './styles';
 
-interface InputProps extends TextInputProps {
-  name: string;
+export interface InputProps extends TextInputProps {
+  name?: string;
   children?: ReactNode;
-  icon: string;
+  icon?: string;
+  containerStyle?: {};
 }
 
 interface InputValueReference {
@@ -27,7 +28,15 @@ interface InputRef {
 }
 
 const Input: React.RefForwardingComponent<InputRef, InputProps> = (
-  { name, icon, keyboardType, autoCorrect = false, children, ...rest },
+  {
+    name,
+    icon,
+    keyboardType,
+    containerStyle = {},
+    autoCorrect = false,
+    children,
+    ...rest
+  },
   ref,
 ) => {
   const inputElementRef = useRef<any>(null);
@@ -71,7 +80,11 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
   }, [fieldName, registerField]);
 
   return (
-    <Container isThereErrors={!!error} isFocused={isFocused}>
+    <Container
+      style={containerStyle}
+      isThereErrors={!!error}
+      isFocused={isFocused}
+    >
       <Icon
         name={icon}
         size={20}

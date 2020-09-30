@@ -3,12 +3,15 @@ import AppError from '@shared/errors/AppError';
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import UpdateUserAvatarService from '../services/UpdateUserAvatarService';
 import IUsersRepository from '../repositories/IUsersRepository';
 
 let fakeUsersRepository: IUsersRepository;
 let fakeStorageProvider: IStorageProvider;
+let fakeCacheProvider: ICacheProvider;
 
 let updateUserAvatar: UpdateUserAvatarService;
 
@@ -16,10 +19,12 @@ describe('Update User Avatar', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeStorageProvider = new FakeStorageProvider();
+    fakeCacheProvider = new FakeCacheProvider();
 
     updateUserAvatar = new UpdateUserAvatarService(
       fakeUsersRepository,
       fakeStorageProvider,
+      fakeCacheProvider,
     );
   });
 

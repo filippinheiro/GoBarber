@@ -15,14 +15,22 @@ interface SingInCredentials {
 
 interface AuthState {
   token: string;
-  user: object;
+  user: User;
+}
+
+interface User {
+  name: string;
+  avatar_url: string;
+  email: string;
+  id: string;
 }
 
 interface AuthContextData {
-  user: object;
+  user: User;
   loading: boolean;
-  signIn(credentials: SingInCredentials): Promise<void>;
-  signOut(): void;
+  signIn: (credentials: SingInCredentials) => Promise<void>;
+  signOut: () => void;
+  updateUser: (user: User) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -38,6 +46,8 @@ export const AuthProvider: React.FC = ({ children }) => {
         '@GoBarber:user',
       ]);
       if (token[1] && user[1]) {
+        api.defaults.headers.authorization = `Bearer ${token[1]}`;
+
         setData({
           token: token[1],
           user: JSON.parse(user[1]),
@@ -61,7 +71,8 @@ export const AuthProvider: React.FC = ({ children }) => {
       ['@GoBarber:token', token],
       ['@GoBarber:user', JSON.stringify(user)],
     ]);
-    await AsyncStorage.setItem('@GoBarber:user', JSON.stringify(user));
+
+    api.defaults.headers.authorization = `Bearer ${token}`;
 
     setData({ token, user });
   }, []);
@@ -72,13 +83,35 @@ export const AuthProvider: React.FC = ({ children }) => {
     setData({} as AuthState);
   }, []);
 
+  const updateUser = useCallback(
+    async (user: User) => {
+      await AsyncStorage.setItem('@GoBarber:user', JSON.stringify(user));
+
+      setData({
+        ...data,
+        user,
+      });
+    },
+    [data],
+  );
+
   return (
-    <AuthContext.Provider value={{ loading, user: data.user, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ loading, user: data.user, signIn, signOut, updateUser }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
-
+/**
+ * @author Filipe Pinheiro
+ *
+ * `useAuth` hook will return the authorization values that is exposed from the AuthContext Provider,
+ * it should be always used inside an Auth Provider
+ *
+ * @return the values as an AuthContextData object
+ * @version 1.0.0
+ */
 export function useAuth(): AuthContextData {
   const context = useContext(AuthContext);
 

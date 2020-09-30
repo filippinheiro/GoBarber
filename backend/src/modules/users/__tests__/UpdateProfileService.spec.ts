@@ -1,5 +1,7 @@
 import AppError from '@shared/errors/AppError';
 
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
@@ -9,6 +11,7 @@ import IUsersRepository from '../repositories/IUsersRepository';
 
 let fakeUsersRepository: IUsersRepository;
 let fakeHashProvider: IHashProvider;
+let fakeCacheProvider: ICacheProvider;
 
 let updateProfile: UpdateProfileService;
 
@@ -16,10 +19,12 @@ describe('Update Profile', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeHashProvider = new FakeHashProvider();
+    fakeCacheProvider = new FakeCacheProvider();
 
     updateProfile = new UpdateProfileService(
       fakeUsersRepository,
       fakeHashProvider,
+      fakeCacheProvider,
     );
   });
 

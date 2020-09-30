@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import mime from 'mime';
 import aws, { S3 } from 'aws-sdk';
+import crypto from 'crypto';
 
 import upload from '@config/upload';
 
@@ -27,13 +28,17 @@ export default class DiskStorageProvider implements IStorageProvider {
       throw new Error('file not found');
     }
 
+    const fileHash = crypto.randomBytes(10).toString('hex');
+    const fileSulfix = file.trim().replace(/\s/g, '');
+    const fileName = `${fileHash}-${fileSulfix}-${Date.now()}`;
+
     await this.client
       .putObject({
         Bucket: upload.config.aws.bucket,
         Key: file,
         ACL: 'public-read',
         ContentType,
-        ContentDisposition: `inline; filename=${file}`,
+        ContentDisposition: `inline; filename=${fileName}`,
         Body: fileContent,
       })
       .promise();

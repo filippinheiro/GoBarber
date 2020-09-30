@@ -1,26 +1,26 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState } from 'react';
 
-import { TextInputProps } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import Input from '../Input';
+import Input, { InputProps } from '../Input';
 
-interface ToggleProps extends TextInputProps {
+interface TogglePasswordProps extends InputProps {
   inputReference?: any;
 }
 
-const TogglePassword: React.FC<ToggleProps> = ({
+const TogglePassword: React.FC<TogglePasswordProps> = ({
   inputReference = null,
+  name = 'password',
+  icon = 'lock',
   ...rest
 }) => {
   const [secure, setSecure] = useState(true);
 
   return (
     <Input
+      name={name}
       ref={inputReference}
-      name="password"
-      icon="lock"
-      placeholder="Senha"
+      icon={icon}
       secureTextEntry={secure}
       {...rest}
     >
